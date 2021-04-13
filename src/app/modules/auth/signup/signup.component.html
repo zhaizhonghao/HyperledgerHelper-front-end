@@ -1,0 +1,25 @@
+<div class="alert alert-danger" *ngIf="hasError">
+    <h1>An error occured!</h1>
+    <p>{{errMessage}}<p>
+    <button style="margin-top: 20px;" mat-raised-button color="warn" (click)="onClearError()">Ok</button>
+</div>
+<main class="form-signin">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <h1 class="h3 mb-3 fw-normal">Sign up</h1>
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput ngModel name="email" required email>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" ngModel name="password" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Password Comfirmed</mat-label>
+            <input matInput type="password" ngModel name="passwordComfirmed" required>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary" type="submit">sign up</button>
+    </form>
+  </main>
+

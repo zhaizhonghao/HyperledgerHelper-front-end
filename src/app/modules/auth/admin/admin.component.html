@@ -1,0 +1,69 @@
+<div class="container">
+        <h1 style="color: gray;">
+            <mat-icon class="header_icon">manage_accounts</mat-icon>
+            Administration
+        </h1>
+        <mat-divider></mat-divider>
+        <br>
+        <h2>Users</h2>
+        <table mat-table [dataSource]="users" class="mat-elevation-z8">
+            <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef> Role </th>
+                <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="operation">
+                <th mat-header-cell *matHeaderCellDef> Operation </th>
+                <td mat-cell *matCellDef="let element;">
+                    <button mat-raised-button color="warn" type="button" (click)="onDeleteUser(element.email)">Delete</button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsOfUsers"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsOfUsers;"></tr>
+        </table>  
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+        <h2>Access Control List For Registration</h2>
+        <div class="row" style="margin-left: 20px; margin-bottom: 20px;">
+            <mat-form-field class="example-form-field" style="margin-right: 20px;">
+                <mat-label>New allowed email</mat-label>
+                <input matInput type="text" [(ngModel)]="newEmail" email>
+                <button mat-button *ngIf="newEmail" matSuffix mat-icon-button aria-label="Clear" (click)="newEmail=''">
+                <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>          
+            <button mat-raised-button color="primary" type="button" (click)="onAdd()">Add</button>
+        </div>
+        
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="operation">
+                <th mat-header-cell *matHeaderCellDef> Operation </th>
+                <td mat-cell *matCellDef="let element;">
+                    <button mat-raised-button color="warn" type="button" (click)="onDelete(element.email)">Delete</button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>      
+</div>  

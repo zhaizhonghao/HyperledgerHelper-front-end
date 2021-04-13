@@ -1,0 +1,68 @@
+<div class="container">
+    <h1 style="color: gray;">
+        <mat-icon class="header_icon">cloud_circle</mat-icon>
+        Smart Contract Install
+    </h1>
+    <mat-divider></mat-divider>
+    <h2 style="margin-top: 20px;">Smart Contract Setup</h2>
+    <form #f="ngForm" style="padding: 2%;">
+        <mat-form-field appearance="fill">
+            <mat-label>Smart Contract Name</mat-label>
+            <input matInput ngModel name="ContractName">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Language</mat-label>
+            <mat-select ngModel name="Language">
+              <mat-option *ngFor="let language of languages" [value]="language.value">
+                {{language.viewValue}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Version</mat-label>
+            <input matInput type="number" ngModel name="Version">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Channel</mat-label>
+          <input matInput ngModel name="Channel">
+      </mat-form-field>
+        <br>
+    </form>
+    <h2 style="margin-top: 20px;">Peer Selection</h2>
+    <mat-list>
+      <div mat-subheader>Please select peers to install the smart contract(I:install, P:package, IN:instantiate)</div>
+      <mat-list-item *ngFor="let peer of peers;index as i">
+        <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
+        <div mat-line>{{peer.HostName}}</div>
+        <div mat-line> {{peer.Port}} </div>
+        <mat-divider></mat-divider>
+        <button 
+          *ngIf="i == 0"
+          mat-raised-button 
+          matTooltip="Package the smart contract" 
+          color="accent"  
+          type="button" 
+          (click)="onPackage(peer)">
+          P
+        </button>
+        <button 
+          mat-raised-button 
+          matTooltip="Install the smart contract" 
+          color="primary" 
+          type="button" 
+          (click)="onInstall(peer)">
+          I
+        </button>
+        <button 
+        mat-raised-button 
+        matTooltip="Query the smart contract ID" 
+        color="primary" 
+        type="button" 
+        (click)="onQueryPackageID()">
+        Q
+      </button>
+      </mat-list-item>
+    </mat-list>
+
+</div>
+

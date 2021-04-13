@@ -1,0 +1,33 @@
+<div class="container">
+    <h1 style="color: gray;">
+        <mat-icon class="header_icon">connect_without_contact</mat-icon>
+        Node Management 
+    </h1>
+    <mat-divider></mat-divider>
+    <h2 style="margin-top: 20px;">Nodes that are going to be deployed</h2>
+    <mat-list>
+        <div mat-subheader>Orderers</div>
+        <mat-list-item *ngFor="let orderer of orderers">
+            <mat-icon mat-list-icon>adjust</mat-icon>
+            <div mat-line>{{orderer.Host}}</div>
+            <div mat-line>Port: {{orderer.Port}} </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div mat-subheader>Peers</div>
+        <mat-list-item *ngFor="let peer of peers">
+            <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
+            <div mat-line>{{peer.HostName}}</div>
+            <div mat-line>Port: {{peer.Port}}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div mat-subheader>Users</div>
+        <mat-list-item *ngFor="let peer of peers">
+            <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
+            <div mat-line>{{peer.HostName}}</div>
+            <div mat-line>Port: {{peer.Port}}</div>
+        </mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <mat-spinner *ngIf="isWaiting"></mat-spinner>
+    <button mat-raised-button color="primary" (click)="onDeploy()">Deploy</button>
+</div>

@@ -1,0 +1,47 @@
+<div class="container">
+    <h1 style="color: gray;">
+        <mat-icon class="header_icon">gavel</mat-icon>
+        Smart contract Approval
+    </h1>
+    <mat-divider></mat-divider>
+    <h2 style="margin-top: 20px;">Smart Contract Information</h2>
+    <mat-list role="list" *ngIf="approveInfo != null">
+        <mat-list-item role="listitem">
+            <strong>Name</strong> {{approveInfo.ContractInfo.ContractName}}
+            <mat-divider></mat-divider>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <strong>Languange</strong> {{approveInfo.ContractInfo.Language}}
+            <mat-divider></mat-divider>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <strong>Version</strong> {{approveInfo.ContractInfo.Version}}
+            <mat-divider></mat-divider>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <strong>Channel</strong> {{approveInfo.ContractInfo.PeerInfo.Channel}}
+            <mat-divider></mat-divider>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+            <strong>PackageID</strong> {{approveInfo.PackageID}}
+            <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+      <h2 style="margin-top: 20px;">Peer Approval</h2>
+    <mat-list>
+      <mat-list-item *ngFor="let peer of peers;index as i">
+        <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
+        <div mat-line>{{peer.HostName}}</div>
+        <div mat-line> {{peer.Port}} </div>
+        <mat-divider></mat-divider>
+        <button 
+          mat-raised-button 
+          matTooltip="Approve the smart contract" 
+          color="primary" 
+          type="button"
+          (click)="onApprove(peer)">
+          <mat-icon>thumb_up</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+</div>

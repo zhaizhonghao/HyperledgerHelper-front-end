@@ -1,0 +1,82 @@
+<div class="container">
+  <h1 style="color: gray;">
+      <mat-icon class="header_icon">cloud_done</mat-icon>
+      Smart contract Instantiate
+  </h1>
+  <mat-divider></mat-divider>
+  <h2 style="margin-top: 20px;">Status of approvals of the Smart Contract</h2>
+  <button 
+    mat-raised-button 
+    matTooltip="check the approvals of the Smart Contract" 
+    color="primary" 
+    type="button"
+    (click)="onCheck()">
+    Check
+  </button>
+  <mat-list role="list">
+    <mat-list-item role="listitem" >
+      <strong style="font-size: 18px;">Organizations</strong>
+      <p>Status</p>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+    <mat-list-item role="listitem" *ngFor="let approval of approvals">
+        <strong>{{approval.OrgMSP}}</strong> 
+        <mat-icon *ngIf="approval.isApproved" matTooltip="Approve!" style="color: rgb(101, 216, 101);">thumb_up</mat-icon>
+        <mat-icon *ngIf="!approval.isApproved" matTooltip="Disapprove!" style="color: rgb(192, 68, 68);">thumb_down</mat-icon>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  <mat-list>
+  </mat-list>
+  <h2 style="margin-top: 20px;">Instantiate the Smart Contract</h2>
+  <mat-list>
+    <mat-list-item>
+      <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
+      <div mat-line>peer0.org1.example.com</div>
+      <div mat-line>7051</div>
+      <mat-divider></mat-divider>
+      <button 
+      mat-raised-button 
+      matTooltip="Instantiate the smart contract" 
+      color="primary" 
+      type="button"
+      (click)="onInstantiate()">
+      IN
+    </button>
+    </mat-list-item>
+  </mat-list>
+  <h2 style="margin-top: 20px;">Initialize the Smart Contract</h2>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" style="padding: 2%;">
+      <div>
+          <mat-form-field appearance="fill">
+              <mat-label>Function name</mat-label>
+              <input matInput ngModel name="function">
+          </mat-form-field>
+      </div>
+      <div class="row" ngModelGroup="Args">
+          <h3>
+              Arguments
+              <button mat-icon-button type="button" (click)="onAddArg()">
+                  <mat-icon>add_circle_outline</mat-icon>
+              </button>
+          </h3>
+              <div *ngFor="let arg of args">
+                  <mat-form-field appearance="fill">
+                      <mat-label>Argument</mat-label>
+                      <input matInput ngModel [name]="'arg'+arg">
+                  </mat-form-field>
+                  <button mat-icon-button type="button" (click)="onRemoveArg(arg)">
+                      <mat-icon>remove_circle_outline</mat-icon>
+                  </button>
+              </div>
+      </div>
+      <button 
+        mat-raised-button 
+        matTooltip="Initialize the smart contract" 
+        color="primary" 
+        type="button"
+        type="submit">
+        Initialize
+      </button>
+  </form>
+</div>

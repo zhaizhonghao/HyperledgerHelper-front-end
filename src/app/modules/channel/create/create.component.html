@@ -1,0 +1,118 @@
+<div class="container">
+    <h1 style="color: gray;">
+        <mat-icon class="header_icon">add_road</mat-icon>
+        Channel Registration
+    </h1>
+    <mat-divider></mat-divider>
+    <br>
+    <div class="csr-table">
+        <form #f="ngForm" class="example-form" (ngSubmit)="onSubmit(f)">
+            <h2>Consensus Setup</h2>
+            <div ngModelGroup="Consensus">
+                <mat-form-field appearance="fill">
+                    <mat-label>Consensus</mat-label>
+                    <mat-select 
+                    required
+                    ngModel 
+                    name="OdererType">
+                      <mat-option value="solo">solo</mat-option>
+                      <mat-option value="kafka">kafka</mat-option>
+                      <mat-option value="etcdraft">etcdraft</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>BatchTimeout</mat-label>
+                    <input 
+                    required
+                    matInput 
+                    placeholder="例如，2" 
+                    ngModel 
+                    name="BatchTimeout">
+                </mat-form-field>
+                <h3>Batch Size</h3>
+                <div ngModelGroup="BatchSize" class="batch-size">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>MaxMessageCount</mat-label>
+                        <input 
+                        required
+                        matInput 
+                        placeholder="例如，1000" 
+                        ngModel 
+                        name="MaxMessageCount">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>AbsoluteMaxBytes</mat-label>
+                        <input 
+                        required
+                        matInput 
+                        placeholder="例如，98" 
+                        ngModel 
+                        name="AbsoluteMaxBytes">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>PreferredMaxBytes</mat-label>
+                        <input 
+                        required
+                        matInput 
+                        placeholder="例如，1024" 
+                        ngModel 
+                        name="PreferredMaxBytes">
+                    </mat-form-field>
+                </div>
+            </div>
+            <h2>Channel Setup</h2>
+            <div ngModelGroup="Channel">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Channel Name</mat-label>
+                    <input 
+                    required
+                    matInput 
+                    placeholder="例如，BasicChannel" 
+                    ngModel 
+                    name="Name">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Consortium Name</mat-label>
+                    <input 
+                    required
+                    matInput 
+                    placeholder="例如，SampleConsortium" 
+                    ngModel 
+                    name="Consortium">
+                </mat-form-field>
+                <h3>Organizations Joined *</h3>
+                <section class="example-section" *ngIf="canShowSelection">
+                    <span class="example-list-section">
+                      <mat-checkbox class="example-margin"
+                                    [checked]="allComplete"
+                                    [color]="task.color"
+                                    [indeterminate]="someComplete()"
+                                    (change)="setAll($event.checked)">
+                        {{task.name}}
+                      </mat-checkbox>
+                    </span>
+                    <span class="example-list-section">
+                      <ul>
+                        <li *ngFor="let subtask of task.subtasks">
+                          <mat-checkbox [(ngModel)]="subtask.completed"
+                                        [color]="subtask.color"
+                                        (ngModelChange)="updateAllComplete()"
+                                        [name]="subtask.name">
+                            {{subtask.name}}
+                          </mat-checkbox>
+                        </li>
+                      </ul>
+                    </span>
+                  </section>
+            </div>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!f.valid">Submit</button>
+            <button mat-raised-button color="warn" (click)="onReset(f)">Reset</button>
+        </form>
+        <mat-spinner *ngIf="isGenerating"></mat-spinner>
+        <div style="margin-top: 20px;" class="alert alert-danger" *ngIf="error">
+          <h1>An Error Occured!</h1>
+          <p>{{error}}</p>
+          <button style="margin-top: 20px;" mat-raised-button color="warn" (click)="onClearError()">Ok</button>
+      </div>
+    </div>
+</div>

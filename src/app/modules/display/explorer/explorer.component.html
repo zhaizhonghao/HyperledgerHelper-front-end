@@ -1,0 +1,10 @@
+<div class="container">
+    <h1 style="color: gray;">
+        <mat-icon class="header_icon">timeline</mat-icon>
+        Blockchain Information Display
+    </h1>
+    <mat-divider></mat-divider>
+    <p style="margin-top: 20px;font-size: 16px;">Since our own display page is on the way, Hyperledger Explorer is now used to display the information of underline blockchain</p>
+    <button mat-raised-button color="primary" type="button" (click)="onStart()" [disabled]="isStarted">Start the explorer</button>
+    <a *ngIf="isStarted" href="http://localhost:8080"><h2><mat-icon style="margin-right: 20px;">shortcut</mat-icon>Go to the External link!</h2></a>
+</div>

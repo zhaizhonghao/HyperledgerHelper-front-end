@@ -1,0 +1,44 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button (click)="toggleSideBar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span> Blockchain Platform </span>
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="20px">
+                <li *ngIf="!isLogin">
+                    <button mat-icon-button matTooltip="Login" (click)="onLogin()">
+                        Sign in
+                    </button>
+                </li>
+                <li *ngIf="!isLogin">
+                    <button mat-icon-button matTooltip="Login" (click)="onSignUp()">
+                        Sign up
+                    </button>
+                </li>
+                <li *ngIf="isLogin">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        Welcome, {{email}}
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onLogout()">
+                        <mat-icon>exit_to_app</mat-icon>
+                        Sign out
+                    </button>
+                    <button *ngIf="isAdmin" mat-menu-item (click)="onManage()">
+                        <mat-icon>manage_accounts</mat-icon>
+                        Management
+                    </button>
+                    </mat-menu>
+                </li>
+                <li>
+                    <button mat-icon-button (click)="openDialog()">
+                        <mat-icon>help_outline</mat-icon>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  

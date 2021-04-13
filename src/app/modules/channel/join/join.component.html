@@ -1,0 +1,30 @@
+<div class="container">
+    <h1 style="color: gray;">
+        <mat-icon class="header_icon">wrap_text</mat-icon>
+        Channel Join
+    </h1>
+    <mat-divider></mat-divider>
+    <h2 style="margin-top: 20px;">Channel Selection</h2>
+    <mat-form-field appearance="fill">
+        <mat-label>Channel</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let channel of channels" [value]="channel.value">
+            {{channel.viewValue}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-spinner *ngIf="isWaiting"></mat-spinner>
+    <button mat-raised-button color="primary" type="button" (click)="onCreateChannel()">Create Channel</button>
+    <h2 style="margin-top: 20px;">Peer Selection</h2>
+      <mat-list>
+        <div mat-subheader>Please select peers to join the channel</div>
+        <mat-list-item *ngFor="let peer of peers">
+          <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
+          <div mat-line>{{peer.HostName}}</div>
+          <div mat-line> {{peer.Port}} </div>
+          <mat-divider></mat-divider>
+          <button mat-raised-button color="accent" type="button" (click)="onJoin(peer)">Join</button>
+        </mat-list-item>
+      </mat-list>
+</div>
