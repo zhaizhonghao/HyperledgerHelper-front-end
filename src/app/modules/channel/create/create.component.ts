@@ -31,6 +31,8 @@ export class CreateComponent implements OnInit {
   canShowSelection = false;
   isGenerating = false;
   error = null;
+  markdown = "";
+  isGenerated = false;
 
   constructor(
     private configService:ConfigService,
@@ -63,11 +65,21 @@ export class CreateComponent implements OnInit {
       .subscribe(
         (response:any)=>{
           console.log(response);
+          this.markdown = 
+          `
+          \`\`\`yaml
+          `
+          +response.Payload+
+          `
+          \`\`\`
+          `
           this.isGenerating = false;
+          this.isGenerated = true;
       },
       error =>{
         this.error = error.message;
         this.isGenerating = false;
+        this.isGenerated = false;
       }
     )
   }

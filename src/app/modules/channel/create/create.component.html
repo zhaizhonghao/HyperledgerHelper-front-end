@@ -5,7 +5,7 @@
     </h1>
     <mat-divider></mat-divider>
     <br>
-    <div class="csr-table">
+    <div class="csr-table" *ngIf="!isGenerated">
         <form #f="ngForm" class="example-form" (ngSubmit)="onSubmit(f)">
             <h2>Consensus Setup</h2>
             <div ngModelGroup="Consensus">
@@ -114,5 +114,9 @@
           <p>{{error}}</p>
           <button style="margin-top: 20px;" mat-raised-button color="warn" (click)="onClearError()">Ok</button>
       </div>
+    </div>
+    <div class="row" *ngIf="isGenerated">
+      <h2>The content of generated Configtx file</h2>
+      <markdown [data]="markdown"></markdown>
     </div>
 </div>

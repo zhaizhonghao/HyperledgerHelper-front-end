@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>          
-            <button mat-raised-button color="primary" type="submit">Submit</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="orderers.length == 0 || peerOrgs.length == 0">Submit</button>
             <button mat-raised-button color="warn" (click)="onClick(f)">Reset</button>
         </form>
         <mat-spinner *ngIf="isGenerating"></mat-spinner>

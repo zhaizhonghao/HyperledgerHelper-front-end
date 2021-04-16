@@ -3,7 +3,6 @@ import { Form, NgForm } from '@angular/forms';
 import { BlockchainService } from 'src/app/services/blockchain.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { ConfigCp, OrdererCp, PeerOrgCp } from './configCp.model';
-import {map} from "rxjs/operators";
 
 export interface Node {
   name: string;
@@ -37,6 +36,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   onAddOrderer(){

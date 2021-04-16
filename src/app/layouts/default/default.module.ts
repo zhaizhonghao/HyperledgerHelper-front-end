@@ -28,6 +28,7 @@ import { LoginComponent } from 'src/app/modules/auth/login/login.component';
 import { SignupComponent } from 'src/app/modules/auth/signup/signup.component';
 import { AdminComponent } from 'src/app/modules/auth/admin/admin.component';
 import {MatTableModule} from '@angular/material/table';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import {MatTableModule} from '@angular/material/table';
     MatTooltipModule,
     MatGridListModule,
     MatTableModule,
-    
+    MarkdownModule.forRoot()
   ]
 })
 export class DefaultModule { }
