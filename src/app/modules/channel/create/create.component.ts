@@ -64,7 +64,7 @@ export class CreateComponent implements OnInit {
     this.blockchainService.postConfigtx(JSON.stringify(configtx))
       .subscribe(
         (response:any)=>{
-          console.log(response);
+          alert("Channel setup successfully!")
           this.markdown = 
           `
           \`\`\`yaml
