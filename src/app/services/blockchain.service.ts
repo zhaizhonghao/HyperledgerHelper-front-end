@@ -38,6 +38,10 @@ export class BlockchainService {
   return this.httpClient.get(this.appendToUrl('node'),this.httpOptions);
  }
 
+ getNodeStates(){
+   return this.httpClient.get(this.appendToUrl('node','states'),this.httpOptions);
+ }
+
  createChannel(body){
   return this.httpClient.post(this.appendToUrl('channel'),body,this.httpOptions); 
  }

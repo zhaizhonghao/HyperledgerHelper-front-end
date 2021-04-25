@@ -4,30 +4,58 @@
         Node Management 
     </h1>
     <mat-divider></mat-divider>
-    <h2 style="margin-top: 20px;">Nodes that are going to be deployed</h2>
-    <mat-list>
-        <div mat-subheader>Orderers</div>
-        <mat-list-item *ngFor="let orderer of orderers">
-            <mat-icon mat-list-icon>adjust</mat-icon>
-            <div mat-line>{{orderer.Host}}</div>
-            <div mat-line>Port: {{orderer.Port}} </div>
-        </mat-list-item>
+    <div *ngIf="!isDeployed">
+        <h2 style="margin-top: 20px;">Nodes that are going to be deployed</h2>
+        <mat-list>
+            <div mat-subheader>Orderers</div>
+            <mat-list-item *ngFor="let orderer of orderers">
+                <mat-icon mat-list-icon>adjust</mat-icon>
+                <div mat-line>{{orderer.Host}}</div>
+                <div mat-line>Port: {{orderer.Port}} </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <div mat-subheader>Peers</div>
+            <mat-list-item *ngFor="let peer of peers">
+                <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
+                <div mat-line>{{peer.HostName}}</div>
+                <div mat-line>Port: {{peer.Port}}</div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <div mat-subheader>Users</div>
+            <mat-list-item *ngFor="let peer of peers">
+                <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
+                <div mat-line>{{peer.HostName}}</div>
+                <div mat-line>Port: {{peer.Port}}</div>
+            </mat-list-item>
+        </mat-list>
         <mat-divider></mat-divider>
-        <div mat-subheader>Peers</div>
-        <mat-list-item *ngFor="let peer of peers">
-            <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
-            <div mat-line>{{peer.HostName}}</div>
-            <div mat-line>Port: {{peer.Port}}</div>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <div mat-subheader>Users</div>
-        <mat-list-item *ngFor="let peer of peers">
-            <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
-            <div mat-line>{{peer.HostName}}</div>
-            <div mat-line>Port: {{peer.Port}}</div>
-        </mat-list-item>
-    </mat-list>
-    <mat-divider></mat-divider>
-    <mat-spinner *ngIf="isWaiting"></mat-spinner>
-    <button mat-raised-button color="primary" (click)="onDeploy()">Deploy</button>
+        <button mat-raised-button color="primary" (click)="onDeploy()">Deploy</button>
+    </div>
+    <div *ngIf="isDeployed">
+        <h2 style="margin-top: 20px;">States of Nodes</h2>
+        <h3 style="margin-top: 20px;">Please keep waiting until all node are up!</h3>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+            <ng-container matColumnDef="state">
+                <th mat-header-cell *matHeaderCellDef> State </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <mat-icon mat-list-icon [ngStyle]="{color:element.state?'lightgreen':'gray'}">circle</mat-icon>
+                </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="operation">
+                <th mat-header-cell *matHeaderCellDef> Operation </th>
+                <td mat-cell *matCellDef="let element;" style="text-align: left;">
+                    <button style="margin-top: 0px;" mat-raised-button color="warn" type="button" [disabled]="!element.state">Shut Down</button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table> 
+    </div>
+
 </div>

@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { AnchorPeer, Orderer, Organization } from '../modules/channel/create/configtx.model';
 import { ConfigCp } from '../modules/identity/register/configCp.model';
 
+export interface Peer{
+  HostName:string;
+  Port:number;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +17,8 @@ export class ConfigService {
   constructor() { 
 
   }
+
+
 
   setConfig(config:ConfigCp){
     this.config = config;
@@ -66,13 +73,13 @@ export class ConfigService {
     if(this.config == null){
       return [];
     }
-    var peerList = [];
+    var peerList:Peer[] = [];
     var counter = 0;
     for (let i = 0; i < this.config.PeerOrgCps.length; i++) {
       const peerOrg = this.config.PeerOrgCps[i];
       var orgName = peerOrg.Name.toLowerCase();
       for (let j = 0; j < peerOrg.CountOfPeers; j++) {
-        var peer = {
+        var peer:Peer = {
           HostName:"peer"+j+"."+orgName+".example.com",
           Port: (7+counter)*1000+51
         }
