@@ -96,6 +96,9 @@ export class InstallComponent implements OnInit {
         //Emit the event
         //this.approveInfoService.installEvent.next(approveInfo);
         this.approveInfoService.setApproveInfo(approveInfo);
+      },
+      error=>{
+        alert("please check the package id after 2 seconds");
       }
     )
   }

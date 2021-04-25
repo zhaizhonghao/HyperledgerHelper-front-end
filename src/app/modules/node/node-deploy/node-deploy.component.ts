@@ -52,7 +52,7 @@ export class NodeDeployComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
 
-    this.interval = setInterval(this.getLatestState,1000,this.blockchainService,this.dataSource);
+    this.interval = setInterval(this.getLatestState,100,this.blockchainService,this.dataSource);
 
   }
 

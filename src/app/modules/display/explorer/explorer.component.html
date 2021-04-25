@@ -7,4 +7,27 @@
     <p style="margin-top: 20px;font-size: 16px;">Since our own display page is on the way, Hyperledger Explorer is now used to display the information of underline blockchain</p>
     <button mat-raised-button color="primary" type="button" (click)="onStart()" [disabled]="isStarted">Start the explorer</button>
     <a *ngIf="isStarted" href="http://localhost:8080"><h2><mat-icon style="margin-right: 20px;">shortcut</mat-icon>Go to the External link!</h2></a>
+    <h3>Pleas keep waiting until all explorer nodes are up!</h3>
+    <table style="margin-top: 20px;" mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+        <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef> State </th>
+            <td mat-cell *matCellDef="let element"> 
+                <mat-icon mat-list-icon [ngStyle]="{color:element.state?'lightgreen':'gray'}">circle</mat-icon>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="operation">
+            <th mat-header-cell *matHeaderCellDef> Operation </th>
+            <td mat-cell *matCellDef="let element;" style="text-align: left;">
+                <button style="margin-top: 0px;" mat-raised-button color="warn" type="button" [disabled]="!element.state">Shut Down</button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table> 
 </div>
