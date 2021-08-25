@@ -3,93 +3,144 @@
         <mat-icon class="header_icon">person_add_alt</mat-icon>
         Identity Registration
     </h1>
-    <mat-divider></mat-divider>
-    <div *ngIf="!isGenerated">
-        <form #f="ngForm" (ngSubmit)="onSubmit(f)" style="padding: 2%;">
-            <div ngModelGroup="ConfigCp">
-                <div class="row" ngModelGroup="OrdererCps">
-                    <h2>
-                        OrdererOrg
-                        <button mat-icon-button type="button" (click)="onAddOrderer()">
-                            <mat-icon>add_circle_outline</mat-icon>
-                        </button>
-                    </h2>
-                        <div *ngFor="let orderer of orderers">
-                            <mat-form-field appearance="fill">
-                                <mat-label>Orderer Name</mat-label>
-                                <input matInput ngModel [name]="'HostName'+orderer">
-                            </mat-form-field>
-                            <button mat-icon-button type="button" (click)="onRemoveOrderer(orderer)">
-                                <mat-icon>remove_circle_outline</mat-icon>
-                            </button>
+    <mat-tab-group>
+        <mat-tab label="For expriment">
+            <div *ngIf="!isGenerated">
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)" style="padding: 2%;">
+                    <div ngModelGroup="ConfigCp">
+                        <div class="row" ngModelGroup="OrdererCps">
+                            <h2>
+                                OrdererOrg
+                                <button mat-icon-button type="button" (click)="onAddOrderer()">
+                                    <mat-icon>add_circle_outline</mat-icon>
+                                </button>
+                            </h2>
+                                <div *ngFor="let orderer of orderers">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Orderer Name</mat-label>
+                                        <input matInput ngModel [name]="'HostName'+orderer">
+                                    </mat-form-field>
+                                    <button mat-icon-button type="button" (click)="onRemoveOrderer(orderer)">
+                                        <mat-icon>remove_circle_outline</mat-icon>
+                                    </button>
+                                </div>
                         </div>
+                        <mat-divider></mat-divider>
+                        <div class="row">
+                            <h2>
+                                PeerOrg
+                                <button mat-icon-button type="button" (click)="onAddPeerOrg()">
+                                    <mat-icon>add_circle_outline</mat-icon>
+                                </button>
+                            </h2>
+                            <div ngModelGroup="PeerOrgCps">
+                                <div *ngFor="let peerOrg of peerOrgs" [ngModelGroup]="'PeerOrgCp'+peerOrg">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Name</mat-label>
+                                        <input matInput ngModel [name]="'Name'+peerOrg">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Domain</mat-label>
+                                        <input matInput ngModel [name]="'Domain'+peerOrg">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Number of peers</mat-label>
+                                        <input matInput type="number" min="1" ngModel [name]="'CountOfPeers'+peerOrg">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Number of users</mat-label>
+                                        <input matInput type="number" min="1" ngModel [name]="'CountOfUsers'+peerOrg">
+                                    </mat-form-field>
+                                    <button mat-icon-button type="button" (click)="onRemovePeerOrg(peerOrg)">
+                                        <mat-icon>remove_circle_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>          
+                    <button mat-raised-button color="primary" type="submit" [disabled]="orderers.length == 0 || peerOrgs.length == 0">Submit</button>
+                    <button mat-raised-button color="warn" (click)="onClick(f)">Reset</button>
+                </form>
+                <mat-spinner *ngIf="isGenerating"></mat-spinner>
+                <div class="alert alert-danger" *ngIf="error">
+                    <h1>An Error Occured!</h1>
+                    <p>{{error}}</p>
+                    <button style="margin-top: 20px;" mat-raised-button color="warn" (click)="onClearError()">Ok</button>
                 </div>
+            </div>
+            <div *ngIf="isGenerated">
                 <mat-divider></mat-divider>
-                <div class="row">
-                    <h2>
-                        PeerOrg
-                        <button mat-icon-button type="button" (click)="onAddPeerOrg()">
-                            <mat-icon>add_circle_outline</mat-icon>
-                        </button>
-                    </h2>
-                    <div ngModelGroup="PeerOrgCps">
-                        <div *ngFor="let peerOrg of peerOrgs" [ngModelGroup]="'PeerOrgCp'+peerOrg">
-                            <mat-form-field appearance="fill">
-                                <mat-label>Name</mat-label>
-                                <input matInput ngModel [name]="'Name'+peerOrg">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Domain</mat-label>
-                                <input matInput ngModel [name]="'Domain'+peerOrg">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Number of peers</mat-label>
-                                <input matInput type="number" min="1" ngModel [name]="'CountOfPeers'+peerOrg">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Number of users</mat-label>
-                                <input matInput type="number" min="1" ngModel [name]="'CountOfUsers'+peerOrg">
-                            </mat-form-field>
-                            <button mat-icon-button type="button" (click)="onRemovePeerOrg(peerOrg)">
-                                <mat-icon>remove_circle_outline</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>          
-            <button mat-raised-button color="primary" type="submit" [disabled]="orderers.length == 0 || peerOrgs.length == 0">Submit</button>
-            <button mat-raised-button color="warn" (click)="onClick(f)">Reset</button>
-        </form>
-        <mat-spinner *ngIf="isGenerating"></mat-spinner>
-        <div class="alert alert-danger" *ngIf="error">
-            <h1>An Error Occured!</h1>
-            <p>{{error}}</p>
-            <button style="margin-top: 20px;" mat-raised-button color="warn" (click)="onClearError()">Ok</button>
-        </div>
-    </div>
-    <div *ngIf="isGenerated">
-        <mat-divider></mat-divider>
-        <h2 style="margin-top: 20px;">Has successfully generated the identity materials for following entities</h2>
-        <mat-list>
-            <div mat-subheader>Oderers</div>
-            <mat-list-item *ngFor="let orderer of generatedOrderers">
-              <mat-icon mat-list-icon>adjust</mat-icon>
-              <div mat-line>{{orderer.name}}</div>
-              <div mat-line>Port:{{orderer.port}} </div>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <div mat-subheader>Peers</div>
-            <mat-list-item *ngFor="let peer of generatedPeers">
-              <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
-              <div mat-line>{{peer.name}}</div>
-              <div mat-line>Port:{{peer.port}} </div>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <div mat-subheader>Users</div>
-            <mat-list-item *ngFor="let user of generatedUsers">
-              <mat-icon mat-list-icon>face</mat-icon>
-              <div mat-line>{{user.name}}</div>
-            </mat-list-item>
-          </mat-list>          
-    </div>
+                <h2 style="margin-top: 20px;">Has successfully generated the identity materials for following entities</h2>
+                <mat-list>
+                    <div mat-subheader>Oderers</div>
+                    <mat-list-item *ngFor="let orderer of generatedOrderers">
+                      <mat-icon mat-list-icon>adjust</mat-icon>
+                      <div mat-line>{{orderer.name}}</div>
+                      <div mat-line>Port:{{orderer.port}} </div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <div mat-subheader>Peers</div>
+                    <mat-list-item *ngFor="let peer of generatedPeers">
+                      <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
+                      <div mat-line>{{peer.name}}</div>
+                      <div mat-line>Port:{{peer.port}} </div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <div mat-subheader>Users</div>
+                    <mat-list-item *ngFor="let user of generatedUsers">
+                      <mat-icon mat-list-icon>face</mat-icon>
+                      <div mat-line>{{user.name}}</div>
+                    </mat-list-item>
+                  </mat-list>          
+            </div>
+        </mat-tab>
+        <mat-tab label="For production">
+            <div class="alert alert-danger" *ngIf="!isAuthorized">
+                <h1>An Error Occured!</h1>
+                <p>Not authorized! You must be the admin of the organization!</p>
+            </div>
+            <br>
+            <form #f="ngForm" (ngSubmit)="onRegister(f)" *ngIf="isAuthorized">
+                <h2 class="h3 mb-3 fw-normal">Information for registration</h2>
+                <mat-radio-group aria-label="Select an organization" ngModel name="Organization">
+                    <mat-radio-button value="1">Org1</mat-radio-button>
+                    <mat-radio-button value="2">Org2</mat-radio-button>
+                    </mat-radio-group>
+                <br>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Type</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let type of types" [value]="type.value">
+                        {{type.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Username</mat-label>
+                    <input matInput ngModel name="Username" required>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" ngModel name="Password" required>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Host Name</mat-label>
+                    <input matInput ngModel name="CSRHosts" required>
+                </mat-form-field>
+                <br>
+                <mat-radio-group aria-label="Select an option" ngModel name="ForTLS">
+                    <mat-radio-button value="1">For TLS</mat-radio-button>
+                    <mat-radio-button value="2">Not For TLS</mat-radio-button>
+                  </mat-radio-group>
+                <br>
+                <br>                  
+                <button mat-raised-button color="primary" type="submit">register</button>
+                <button mat-raised-button color="warn" (click)="onClick(f)">Reset</button>
+            </form>
+        </mat-tab>
+      </mat-tab-group>      
 </div>

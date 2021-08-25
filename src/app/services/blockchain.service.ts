@@ -50,6 +50,10 @@ export class BlockchainService {
   return this.httpClient.post(this.appendToUrl('channel','join'),body,this.httpOptions); 
  }
 
+ updateAnchorPeers(body){
+  return this.httpClient.post(this.appendToUrl('channel','updateAnchorPeers'),body,this.httpOptions); 
+ }
+
  packageContract(body){
   return this.httpClient.post(this.appendToUrl('contract','package'),body,this.httpOptions);
  }

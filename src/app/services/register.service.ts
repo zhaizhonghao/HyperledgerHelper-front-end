@@ -1,14 +1,15 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ExplorerService {
+export class RegisterService {
+
   private url : string;
   private httpOptions : any;
   constructor( private httpClient:HttpClient) { 
-    this.url = 'http://localhost:8282';
+    this.url = 'http://localhost:8383';
     this.httpOptions= {
       headers: new HttpHeaders({
          'Content-Type':  'application/json'
@@ -16,11 +17,10 @@ export class ExplorerService {
      };
   }
 
-
-  setupExplorer(body){
-    return this.httpClient.post(this.appendToUrl('display','explorer'),body,this.httpOptions);
+  register(body){
+    return this.httpClient.post(this.appendToUrl('fabricca','register'),body,this.httpOptions);
   }
-  
+
 
   private appendToUrl(...args){
     let urlFull = this.url;
@@ -29,5 +29,6 @@ export class ExplorerService {
     }
     return urlFull;
  }
+
 
 }

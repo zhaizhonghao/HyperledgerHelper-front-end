@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Configtx } from '../modules/channel/create/configtx.model';
-import { ConfigService } from './config.service';
+import { ConfigService, Peer } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class ConfigtxService {
       return [];
     }
     var peers = this.configService.getPeerList();
-    var peersInChannel = []
+    var peersInChannel:Peer[] = []
     for (let i = 0; i < this.configtx.Channel.Organizatioins.length; i++) {
       const organization = this.configtx.Channel.Organizatioins[i];
       for (let j = 0; j < peers.length; j++) {

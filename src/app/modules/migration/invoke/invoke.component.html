@@ -1,0 +1,43 @@
+<div class="container">
+    <h1 style="color: gray;">
+        <mat-icon class="header_icon">play_circle_filled</mat-icon>
+        DApp Invocation
+    </h1>
+    <mat-divider></mat-divider>
+    <div class="invoke-table">
+        <form #f="ngForm" class="example-form" (ngSubmit)="onSubmit(f)">
+            <br>
+            <h2>Invocation parameters</h2>
+            <mat-form-field appearance="fill" style="width: 500px;">
+                <mat-label>The address of the Smart Contract</mat-label>
+                <textarea 
+                    required
+                    matInput
+                    ngModel 
+                    name="Address"
+                    >
+                </textarea>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="example-full-width">
+                <mat-label>value</mat-label>
+                <input 
+                required
+                matInput 
+                ngModel 
+                name="Value">
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" style="margin-left: 20px;" type="submit" [disabled]="!f.valid">Set</button>
+        </form>
+        <h2 *ngIf="txID!=null">The transaction id is {{txID}}</h2>
+        <div *ngIf="isShow">
+            <mat-divider></mat-divider>
+            <br>
+            <h2><button mat-raised-button color="primary" style="margin-left: 20px;" (click)="onClick()">Query</button> the value</h2>
+            
+            <h2 *ngIf="result!=null">The value is {{result}}</h2>
+        </div>
+
+    </div>
+</div>

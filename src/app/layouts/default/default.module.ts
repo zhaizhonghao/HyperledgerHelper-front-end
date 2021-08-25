@@ -29,6 +29,10 @@ import { SignupComponent } from 'src/app/modules/auth/signup/signup.component';
 import { AdminComponent } from 'src/app/modules/auth/admin/admin.component';
 import {MatTableModule} from '@angular/material/table';
 import { MarkdownModule } from 'ngx-markdown';
+import { MigrateComponent } from 'src/app/modules/migration/migrate/migrate.component';
+import { InvokeComponent } from 'src/app/modules/migration/invoke/invoke.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,8 @@ import { MarkdownModule } from 'ngx-markdown';
     LoginComponent,
     SignupComponent,
     AdminComponent,
+    MigrateComponent,
+    InvokeComponent,
   ],
   imports: [
     CommonModule,
@@ -63,6 +69,8 @@ import { MarkdownModule } from 'ngx-markdown';
     MatTooltipModule,
     MatGridListModule,
     MatTableModule,
+    MatTabsModule,
+    MatRadioModule,
     MarkdownModule.forRoot()
   ]
 })

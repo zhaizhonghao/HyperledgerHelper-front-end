@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   constructor(public dialog: MatDialog,private router:Router,private authService:AuthService) { }
 
   ngOnInit(): void {
+    console.log("on header init")
     this.authService.isAuthenticated().subscribe(
       (res:any)=>{
         if(res.id!=0){

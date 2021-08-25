@@ -56,6 +56,15 @@ const TREE_DATA: FoodNode[] = [
     ]
   },
   {
+    type:'migration',
+    name: 'DApp Migration',
+    icon:'swipe',
+    children: [
+      {type:'migration',icon:'queue',name: 'Migrate'},
+      {type:'migration',icon:'play_circle_filled',name: 'Invoke'},
+    ]
+  },
+  {
     type:'display',
     name: 'Blockchain Display',
     icon:'personal_video',

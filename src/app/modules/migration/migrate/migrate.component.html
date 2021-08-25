@@ -1,0 +1,55 @@
+<div class="container">
+    <h1 style="color: gray;">
+        <mat-icon class="header_icon">queue</mat-icon>
+        DApp Migration
+    </h1>
+    <mat-divider></mat-divider>
+    <div class="migration-table">
+        <form #f="ngForm" class="example-form" (ngSubmit)="onSubmit(f)">
+            <br>
+            <h2>Connection Setup</h2>
+            <mat-form-field class="example-full-width">
+                <mat-label>RPC Server</mat-label>
+                <input 
+                required
+                matInput 
+                placeholder="例如，http://localhost:7545" 
+                ngModel 
+                name="RPCServer">
+            </mat-form-field>
+            <br>
+            <h2>Smart Contract</h2>
+            <div ngModelGroup="SmartContract" class="batch-size">
+                <mat-form-field appearance="fill" style="width: 500px;">
+                    <mat-label>Bytecodes</mat-label>
+                    <textarea 
+                        required
+                        matInput
+                        ngModel 
+                        name="Bytecodes"
+                        >
+                    </textarea>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill" style="width: 500px;">
+                    <mat-label>ABI</mat-label>
+                    <textarea 
+                    required
+                    matInput
+                    ngModel 
+                    name="ABI"
+                    >
+                </textarea>
+                </mat-form-field>
+                <br>
+            </div>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!f.valid">Register</button>
+            <button mat-raised-button color="warn" (click)="onReset(f)">Reset</button>
+        </form>
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+        <h2 *ngIf="address!=null">The address of the deployed smart contract</h2>
+        <h3> {{address}} </h3>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { BlockchainService } from 'src/app/services/blockchain.service';
+import { Peer } from 'src/app/services/config.service';
 import { ConfigtxService } from 'src/app/services/configtx.service';
 
 interface Channel {
@@ -23,7 +24,7 @@ export class JoinComponent implements OnInit {
 
 
   channels: Channel[] = [];
-  peers=[];
+  peers:Peer[]=[];
 
   canShowSelection = false;
 
@@ -62,6 +63,7 @@ export class JoinComponent implements OnInit {
   onJoin(peer){
     var pars = peer.HostName.split(".");
     var peerInfo = {
+      HostName:peer.HostName,
       Org:pars[1],
       Port:peer.Port.toString(),
       Channel:this.configtxService.getChannelName()
@@ -72,5 +74,18 @@ export class JoinComponent implements OnInit {
       }
     )
   }
-
+  onBecome(peer:Peer){
+    var pars = peer.HostName.split(".");
+    var peerInfo = {
+      HostName:peer.HostName,
+      Org:pars[1],
+      Port:peer.Port.toString(),
+      Channel:this.configtxService.getChannelName()
+    }
+    this.blockchainService.updateAnchorPeers(peerInfo).subscribe(
+      (response:any)=>{
+        alert(response.Payload)
+      }
+    )
+  }
 }

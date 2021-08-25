@@ -11,7 +11,7 @@ import { WelcomeComponent } from './modules/home/welcome/welcome.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminGuardService } from './services/admin-guard.service';
-import { MarkdownModule } from 'ngx-markdown';
+
 
 
 @NgModule({

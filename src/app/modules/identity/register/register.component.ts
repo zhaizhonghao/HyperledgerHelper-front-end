@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 import { BlockchainService } from 'src/app/services/blockchain.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { ConfigCp, OrdererCp, PeerOrgCp } from './configCp.model';
+import {  of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 export interface Node {
   name: string;
@@ -11,6 +14,11 @@ export interface Node {
 
 export interface User{
   name:string
+}
+
+interface Type {
+  value: string;
+  viewValue: string;
 }
 
 @Component({
@@ -29,10 +37,24 @@ export class RegisterComponent implements OnInit {
   generatedOrderers : Node[] = [];
   generatedPeers : Node[]= [];
   generatedUsers :User[] = [];
+  //判断是否是管理员
+  isAuthorized = false;
 
+  types: Type[] = [
+    {value: 'admin', viewValue: 'admin'},
+    {value: 'client', viewValue: 'client'},
+    {value: 'peer', viewValue: 'peer'}
+  ];
 
-  constructor(private blockchainService:BlockchainService,private configService:ConfigService) { 
-
+  constructor(private blockchainService:BlockchainService,private configService:ConfigService,private authService:AuthService) { 
+    this.authService.isAuthenticated()
+      .subscribe((res:any)=>{
+        if(res.id != 0 && res.role == "admin"){
+          this.isAuthorized = true;
+        }else{
+          this.isAuthorized = false;
+        }
+      })
   }
 
   ngOnInit(): void {
@@ -158,4 +180,9 @@ export class RegisterComponent implements OnInit {
       }
     }
   }
+
+  onRegister(f:NgForm){
+    console.log(f.value)
+  }
+
 }

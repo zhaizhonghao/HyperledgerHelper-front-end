@@ -16,6 +16,8 @@ import { SignupComponent } from './modules/auth/signup/signup.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminComponent } from './modules/auth/admin/admin.component';
 import { AdminGuardService } from './services/admin-guard.service';
+import { MigrateComponent } from './modules/migration/migrate/migrate.component';
+import { InvokeComponent } from './modules/migration/invoke/invoke.component';
 
 
 const routes: Routes = [
@@ -75,6 +77,16 @@ const routes: Routes = [
         path:'contract/Instantiate',
         canActivate:[AuthGuardService],
         component:InstantiateComponent
+      },
+      {
+        path:'migration/Migrate',
+        canActivate:[AuthGuardService],
+        component:MigrateComponent
+      },
+      {
+        path:'migration/Invoke',
+        canActivate:[AuthGuardService],
+        component:InvokeComponent
       },
       {
         path:'display/Explorer',
