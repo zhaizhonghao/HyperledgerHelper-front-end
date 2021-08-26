@@ -46,6 +46,7 @@
           P
         </button>
         <button 
+          *ngIf="i %2 == 0"
           mat-raised-button 
           matTooltip="Install the smart contract" 
           color="primary" 
@@ -54,6 +55,7 @@
           I
         </button>
         <button 
+        *ngIf="i %2 == 0"
         mat-raised-button 
         matTooltip="Query the smart contract ID" 
         color="primary" 

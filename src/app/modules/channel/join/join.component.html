@@ -19,13 +19,13 @@
     <h2 style="margin-top: 20px;">Peer Selection</h2>
       <mat-list>
         <div mat-subheader>Please select peers to join the channel</div>
-        <mat-list-item *ngFor="let peer of peers">
+        <mat-list-item *ngFor="let peer of peers;index as i">
           <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
           <div mat-line>{{peer.HostName}}</div>
           <div mat-line> {{peer.Port}} </div>
           <mat-divider></mat-divider>
           <button mat-raised-button color="accent" type="button" (click)="onJoin(peer)">Join</button>
-          <button mat-raised-button color="accent" type="button" (click)="onBecome(peer)">An</button>
+          <button *ngIf="i %2 == 0" mat-raised-button color="accent" type="button" (click)="onBecome(peer)">An</button>
         </mat-list-item>
       </mat-list>
 </div>

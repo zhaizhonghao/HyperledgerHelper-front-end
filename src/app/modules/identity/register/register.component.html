@@ -142,5 +142,50 @@
                 <button mat-raised-button color="warn" (click)="onClick(f)">Reset</button>
             </form>
         </mat-tab>
+        <mat-tab label="Fast Pattern">
+            <br>
+            <form #f="ngForm" (ngSubmit)="onFastRegister(f)" >
+                <h2 class="h3 mb-3 fw-normal">Information for registration</h2>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Number of Orderers</mat-label>
+                    <input matInput type="number" min="1" ngModel name="OrdererNum" required>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Number of Organizations</mat-label>
+                    <input matInput type="number" min="1" ngModel name="OrganizationNum" required>
+                </mat-form-field>
+                <br>
+                <br>                  
+                <button mat-raised-button color="primary" type="submit">register</button>
+                <button mat-raised-button color="warn" (click)="onClick(f)">Reset</button>
+            </form>
+            <div *ngIf="isGenerated">
+                <mat-divider></mat-divider>
+                <h2 style="margin-top: 20px;">Has successfully generated the identity materials for following entities</h2>
+                <mat-list>
+                    <div mat-subheader>Oderers</div>
+                    <mat-list-item *ngFor="let orderer of generatedOrderers">
+                      <mat-icon mat-list-icon>adjust</mat-icon>
+                      <div mat-line>{{orderer.name}}</div>
+                      <div mat-line>Port:{{orderer.port}} </div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <div mat-subheader>Peers</div>
+                    <mat-list-item *ngFor="let peer of generatedPeers">
+                      <mat-icon mat-list-icon>filter_tilt_shift</mat-icon>
+                      <div mat-line>{{peer.name}}</div>
+                      <div mat-line>Port:{{peer.port}} </div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <div mat-subheader>Users</div>
+                    <mat-list-item *ngFor="let user of generatedUsers">
+                      <mat-icon mat-list-icon>face</mat-icon>
+                      <div mat-line>{{user.name}}</div>
+                    </mat-list-item>
+                  </mat-list>          
+            </div>
+        </mat-tab>
       </mat-tab-group>      
 </div>

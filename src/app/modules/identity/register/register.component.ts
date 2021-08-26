@@ -185,4 +185,48 @@ export class RegisterComponent implements OnInit {
     console.log(f.value)
   }
 
+  onFastRegister(f:NgForm){
+    var ordererNum = f.value.OrdererNum
+    var organizationNum = f.value.OrganizationNum
+    //Abstract the info of the orderer
+    var ordererCps:OrdererCp[] = [];
+    var peerOrgCps:PeerOrgCp[] = [];
+    for (let i = 1; i <= ordererNum; i++) {
+      ordererCps.push({
+        HostName:"orderer"+i
+      })
+    }
+    for (let i = 1; i <= organizationNum; i++) {
+      peerOrgCps.push({
+        Name: "Org"+i,
+        Domain:"org"+i+".example.com",
+        CountOfPeers : 2,
+        CountOfUsers :2
+      })
+    }
+    var configCp:ConfigCp = {
+      OrdererCps:ordererCps,
+      PeerOrgCps:peerOrgCps
+    };
+    this.configService.setConfig(configCp);
+    this.isGenerating = true;
+    this.blockchainService.postConfigCp(JSON.stringify(configCp))
+    .subscribe(
+      (response:any)=>{
+        if(response == null){
+          alert("There is no response!")
+          this.isGenerating = false;
+          return
+        }
+        this.handleResponse(response);
+        this.isGenerating = false;
+        this.isGenerated = true;
+        alert("Generate the identity materails succefully!")
+      },
+      error =>{
+        this.error = error.message;
+        this.isGenerating = false;
+      }
+    )
+  }
 }

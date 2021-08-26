@@ -35,6 +35,7 @@
         <div mat-line> {{peer.Port}} </div>
         <mat-divider></mat-divider>
         <button 
+          *ngIf="i %2 == 0"
           mat-raised-button 
           matTooltip="Approve the smart contract" 
           color="primary" 
